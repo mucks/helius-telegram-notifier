@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: helius-telegram-notifier-svc
+  namespace: helius-telegram-notifier
+spec:
+  selector:
+    app: helius-telegram-notifier
+  ports:
+    - port: 80
+      targetPort: 3000

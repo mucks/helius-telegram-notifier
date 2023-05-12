@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: helius-telegram-notifier
+  namespace: helius-telegram-notifier
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    cert-manager.io/cluster-issuer: "default-issuer"
+    traefik.ingress.kubernetes.io/router.middlewares: kube-system-redirect-http-to-https@kubernetescrd
+spec:
+  tls:
+    - hosts:
+        - helius-telegram-notifier.mucks.dev
+      secretName: tls-helius-telegram-notifier-mucks-dev
+  rules:
+    - host: helius-telegram-notifier.mucks.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: helius-telegram-notifier-svc
+                port:
+                  number: 80

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helius-telegram-notifier
+  namespace: helius-telegram-notifier
+spec:
+  selector:
+    matchLabels:
+      app: helius-telegram-notifier
+  template:
+    metadata:
+      labels:
+        app: helius-telegram-notifier
+    spec:
+      containers:
+        - name: helius-telegram-notifier
+          image: ghcr.io/mucks/helius-telegram-notifier:master
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
